@@ -1,8 +1,22 @@
 try {
-    // Create a container for the app instead of overwriting the body
+    // Hide existing page content
+    document.body.style.overflow = 'hidden'; // Prevent scrolling of original content
+    Array.from(document.body.children).forEach(child => {
+        if (child.id !== 'budgetable-app') child.style.display = 'none';
+    });
+
+    // Create a full-screen container for the app
     var appContainer = document.createElement('div');
     appContainer.id = 'budgetable-app';
-    appContainer.innerHTML = '<div style="position:relative;"><h1 id="title">Budgetable By Devlin</h1><button id="menuBtn" style="position:absolute;top:0;right:0;font-size:2em;border:none;background:none;cursor:pointer;">☰</button></div><p id="subtitle">budgeting made easy for everyone</p><p id="datetime" style="font-size:1.2em;"></p><div id="menu" style="display:none;position:absolute;top:40px;right:0;background:rgba(0,0,0,0.7);border:1px solid #333;padding:15px;"><button id="homeBtn" style="font-size:1.2em;padding:12px 24px;width:180px;height:50px;margin:5px 0;border-radius:8px;background:#4A90E2;color:#fff;border:none;cursor:pointer;display:block;">Home</button><button id="colorSettingsBtn" style="font-size:1.2em;padding:12px 24px;width:180px;height:50px;margin:5px 0;border-radius:8px;background:#50C878;color:#fff;border:none;cursor:pointer;display:block;">Color Settings</button><button id="importBillsBtn" style="font-size:1.2em;padding:12px 24px;width:180px;height:50px;margin:5px 0;border-radius:8px;background:#FF6B6B;color:#fff;border:none;cursor:pointer;display:block;">Import Bills</button><button id="previousMonthsBtn" style="font-size:1.2em;padding:12px 24px;width:180px;height:50px;margin:5px 0;border-radius:8px;background:#A9A9A9;color:#fff;border:none;cursor:pointer;display:block;">Previous Months</button></div><div id="colorSettings" style="display:none;padding:15px;background:rgba(0,0,0,0.7);border:1px solid #333;border-radius:8px;"><div style="width:30px;height:30px;background:#1A2526;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#1A2526"></div><div style="width:30px;height:30px;background:#000000;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#000000"></div><div style="width:30px;height:30px;background:#FFFFFF;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#FFFFFF"></div><div style="width:30px;height:30px;background:#FFFDD0;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#FFFDD0"></div></div><div id="billsWindow" style="display:none;position:fixed;top:20%;left:10%;width:80%;background:#fff;border:1px solid #333;padding:20px;border-radius:8px;"><h3 style="font-size:1.5em;">Add Bill</h3><input id="billDue" placeholder="Due Date (MM/DD/YYYY)" style="font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px solid #333;"><input id="billDesc" placeholder="Description" style="font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px solid #333;"><input id="billAmt" type="number" placeholder="Amount" style="font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px solid #333;"><button id="saveBillBtn" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;border-radius:8px;background:#50C878;color:#fff;border:none;cursor:pointer;">Save</button><button id="closeBillsBtn" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;border-radius:8px;background:#FF6B6B;color:#fff;border:none;cursor:pointer;">Close</button></div><div id="previousMonths" style="display:none;position:absolute;top:40px;right:200px;background:rgba(0,0,0,0.7);border:1px solid #333;padding:15px;border-radius:8px;"></div><table border="1" style="font-size:1.2em;width:100%;margin:20px 0;border-collapse:collapse;"><tr><th style="padding:15px;border:1px solid #333;">Due Date</th><th style="padding:15px;border:1px solid #333;">Description</th><th style="padding:15px;border:1px solid #333;">Amount</th></tr><tbody id="bills"></tbody><tbody id="entries"></tbody></table><input id="desc" placeholder="Description" style="font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px solid #333;"><input id="amt" type="number" placeholder="Amount" style="font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px solid #333;"><button id="addBtn" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;border-radius:8px;background:#4A90E2;color:#fff;border:none;cursor:pointer;">Add</button><button id="exportBtn" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;border-radius:8px;background:#50C878;color:#fff;border:none;cursor:pointer;">Export</button><button id="importBtn" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;border-radius:8px;background:#FF6B6B;color:#fff;border:none;cursor:pointer;">Import</button>';
+    appContainer.style.position = 'fixed';
+    appContainer.style.top = '0';
+    appContainer.style.left = '0';
+    appContainer.style.width = '100%';
+    appContainer.style.height = '100%';
+    appContainer.style.zIndex = '9999';
+    appContainer.style.backgroundColor = localStorage.getItem('bgColor') || '#FFFFFF'; // Use stored background color
+    appContainer.style.overflow = 'auto'; // Allow scrolling within the app
+    appContainer.innerHTML = '<div class="container-fluid" style="position:relative;padding:15px;"><h1 id="title">Budgetable By Devlin</h1><button id="menuBtn" style="position:absolute;top:15px;right:15px;font-size:2em;border:none;background:none;cursor:pointer;">☰</button></div><p id="subtitle" class="text-center">budgeting made easy for everyone</p><p id="datetime" class="text-center" style="font-size:1.2em;"></p><div id="menu" style="display:none;position:absolute;top:60px;right:15px;background:rgba(0,0,0,0.7);border:1px solid #333;padding:15px;border-radius:8px;"><button id="homeBtn" class="btn btn-primary btn-block" style="font-size:1.2em;padding:12px;width:180px;height:50px;margin:5px 0;">Home</button><button id="colorSettingsBtn" class="btn btn-success btn-block" style="font-size:1.2em;padding:12px;width:180px;height:50px;margin:5px 0;">Color Settings</button><button id="importBillsBtn" class="btn btn-danger btn-block" style="font-size:1.2em;padding:12px;width:180px;height:50px;margin:5px 0;">Import Bills</button><button id="previousMonthsBtn" class="btn btn-secondary btn-block" style="font-size:1.2em;padding:12px;width:180px;height:50px;margin:5px 0;">Previous Months</button></div><div id="colorSettings" style="display:none;padding:15px;background:rgba(0,0,0,0.7);border:1px solid #333;border-radius:8px;position:absolute;top:60px;right:15px;"><div style="width:30px;height:30px;background:#1A2526;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#1A2526"></div><div style="width:30px;height:30px;background:#000000;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#000000"></div><div style="width:30px;height:30px;background:#FFFFFF;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#FFFFFF"></div><div style="width:30px;height:30px;background:#FFFDD0;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#FFFDD0"></div></div><div id="billsWindow" style="display:none;position:fixed;top:20%;left:10%;width:80%;background:#fff;border:1px solid #333;padding:20px;border-radius:8px;z-index:10000;"><h3 style="font-size:1.5em;">Add Bill</h3><input id="billDue" class="form-control" placeholder="Due Date (MM/DD/YYYY)" style="font-size:1.2em;padding:12px;margin:5px;"><input id="billDesc" class="form-control" placeholder="Description" style="font-size:1.2em;padding:12px;margin:5px;"><input id="billAmt" type="number" class="form-control" placeholder="Amount" style="font-size:1.2em;padding:12px;margin:5px;"><button id="saveBillBtn" class="btn btn-success" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;">Save</button><button id="closeBillsBtn" class="btn btn-danger" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;">Close</button></div><div id="previousMonths" style="display:none;position:absolute;top:60px;right:200px;background:rgba(0,0,0,0.7);border:1px solid #333;padding:15px;border-radius:8px;"></div><div class="container-fluid" style="padding:15px;"><table class="table table-bordered" style="font-size:1.2em;margin:20px 0;"><thead><tr><th style="padding:15px;">Due Date</th><th style="padding:15px;">Description</th><th style="padding:15px;">Amount</th></tr></thead><tbody id="bills"></tbody><tbody id="entries"></tbody></table><div class="row"><div class="col"><input id="desc" class="form-control" placeholder="Description" style="font-size:1.2em;padding:12px;margin:5px;"></div><div class="col"><input id="amt" type="number" class="form-control" placeholder="Amount" style="font-size:1.2em;padding:12px;margin:5px;"></div><div class="col"><button id="addBtn" class="btn btn-primary" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;">Add</button></div><div class="col"><button id="exportBtn" class="btn btn-success" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;">Export</button></div><div class="col"><button id="importBtn" class="btn btn-danger" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;">Import</button></div></div></div>';
     document.body.appendChild(appContainer);
 
     let t = document.getElementById('title');
@@ -15,7 +29,6 @@ try {
     let s = document.getElementById('subtitle');
     s.style.color = '#000000';
     s.style.fontSize = '1.5em';
-    s.style.margin = '0 0 10px 0';
 
     let d = document.getElementById('datetime');
     d.style.color = '#000000';
@@ -52,7 +65,7 @@ try {
     let e = localStorage.getItem('budget') ? JSON.parse(localStorage.getItem('budget')) : [];
     let b = localStorage.getItem('bills') ? JSON.parse(localStorage.getItem('bills')) : [];
     let bg = localStorage.getItem('bgColor') || '#FFFFFF';
-    document.body.style.backgroundColor = bg;
+    appContainer.style.backgroundColor = bg;
 
     let bt = document.getElementById('bills');
     let et = document.getElementById('entries');
@@ -61,7 +74,7 @@ try {
         bt.innerHTML = '';
         b.forEach((bi, i) => {
             let tr = document.createElement('tr');
-            tr.innerHTML = `<td style="padding:15px;border:1px solid #333;"><span style="cursor:pointer;text-decoration:underline;" data-index="${i}">${bi.due}</span></td><td style="padding:15px;border:1px solid #333;">${bi.desc}</td><td style="padding:15px;border:1px solid #333;">${bi.amt}</td>`;
+            tr.innerHTML = `<td style="padding:15px;"><span style="cursor:pointer;text-decoration:underline;" data-index="${i}">${bi.due}</span></td><td style="padding:15px;">${bi.desc}</td><td style="padding:15px;">${bi.amt}</td>`;
             bt.appendChild(tr);
             tr.querySelector('span').addEventListener('click', function () {
                 if (confirm('Are you sure you want to delete this bill entry?')) {
@@ -78,7 +91,7 @@ try {
         et.innerHTML = '';
         e.forEach((ei, i) => {
             let tr = document.createElement('tr');
-            tr.innerHTML = `<td style="padding:15px;border:1px solid #333;"><span style="cursor:pointer;text-decoration:underline;" data-index="${i}">${ei.date}</span></td><td style="padding:15px;border:1px solid #333;">${ei.desc}</td><td style="padding:15px;border:1px solid #333;">${ei.amt}</td>`;
+            tr.innerHTML = `<td style="padding:15px;"><span style="cursor:pointer;text-decoration:underline;" data-index="${i}">${ei.date}</span></td><td style="padding:15px;">${ei.desc}</td><td style="padding:15px;">${ei.amt}</td>`;
             et.appendChild(tr);
             tr.querySelector('span').addEventListener('click', function () {
                 if (confirm('Are you sure you want to delete this budget entry?')) {
@@ -198,29 +211,19 @@ try {
                 let btn = document.createElement('button');
                 let delBtn = document.createElement('button');
                 btn.textContent = date;
+                btn.className = 'btn btn-primary btn-block';
                 btn.style.fontSize = '1.2em';
-                btn.style.padding = '12px 24px';
-                btn.style.margin = '5px 0';
+                btn.style.padding = '12px';
                 btn.style.width = '180px';
                 btn.style.height = '50px';
-                btn.style.borderRadius = '8px';
-                btn.style.background = '#4A90E2';
-                btn.style.color = '#fff';
-                btn.style.border = 'none';
-                btn.style.cursor = 'pointer';
-                btn.style.display = 'block';
+                btn.style.margin = '5px 0';
                 delBtn.textContent = 'Delete';
+                delBtn.className = 'btn btn-danger btn-block';
                 delBtn.style.fontSize = '1.2em';
-                delBtn.style.padding = '12px 24px';
-                delBtn.style.margin = '5px 0';
+                delBtn.style.padding = '12px';
                 delBtn.style.width = '120px';
                 delBtn.style.height = '50px';
-                delBtn.style.borderRadius = '8px';
-                delBtn.style.background = '#FF6B6B';
-                delBtn.style.color = '#fff';
-                delBtn.style.border = 'none';
-                delBtn.style.cursor = 'pointer';
-                delBtn.style.display = 'block';
+                delBtn.style.margin = '5px 0';
                 delBtn.addEventListener('click', function () {
                     if (confirm('Are you sure you want to delete the save for ' + date + '?')) {
                         localStorage.removeItem(k);
@@ -260,7 +263,7 @@ try {
     for (let i = 0; i < cd.length; i++) {
         cd[i].addEventListener('click', function () {
             let c = this.getAttribute('data-color');
-            document.body.style.backgroundColor = c;
+            appContainer.style.backgroundColor = c;
             localStorage.setItem('bgColor', c);
             uTC(c);
             m.style.display = 'none';
@@ -273,7 +276,7 @@ try {
         let tC = isD ? '#FFFFFF' : '#000000';
         document.getElementById('subtitle').style.color = tC;
         document.getElementById('datetime').style.color = tC;
-        document.querySelectorAll('input, button, table, th, td').forEach(e => {
+        document.querySelectorAll('#budgetable-app input, #budgetable-app button, #budgetable-app table, #budgetable-app th, #budgetable-app td').forEach(e => {
             e.style.color = tC;
         });
     }
