@@ -1,1 +1,279 @@
-javascript:(function()%7Btry%7Bdocument.body.innerHTML='%3Cdiv%20style=%22position:relative;%22%3E%3Ch1%20id=%22title%22%3EBudgetable%20By%20Devlin%3C/h1%3E%3Cbutton%20id=%22menuBtn%22%20style=%22position:absolute;top:0;right:0;font-size:2em;border:none;background:none;cursor:pointer;%22%3E☰%3C/button%3E%3C/div%3E%3Cp%20id=%22subtitle%22%3Ebudgeting%20made%20easy%20for%20everyone%3C/p%3E%3Cp%20id=%22datetime%22%20style=%22font-size:1.2em;%22%3E%3C/p%3E%3Cdiv%20id=%22menu%22%20style=%22display:none;position:absolute;top:40px;right:0;background:rgba(0,0,0,0.7);border:1px%20solid%20%23333;padding:15px;%22%3E%3Cbutton%20id=%22homeBtn%22%20style=%22font-size:1.2em;padding:12px%2024px;width:180px;height:50px;margin:5px%200;border-radius:8px;background:%234A90E2;color:%23fff;border:none;cursor:pointer;display:block;%22%3EHome%3C/button%3E%3Cbutton%20id=%22colorSettingsBtn%22%20style=%22font-size:1.2em;padding:12px%2024px;width:180px;height:50px;margin:5px%200;border-radius:8px;background:%2350C878;color:%23fff;border:none;cursor:pointer;display:block;%22%3EColor%20Settings%3C/button%3E%3Cbutton%20id=%22importBillsBtn%22%20style=%22font-size:1.2em;padding:12px%2024px;width:180px;height:50px;margin:5px%200;border-radius:8px;background:%23FF6B6B;color:%23fff;border:none;cursor:pointer;display:block;%22%3EImport%20Bills%3C/button%3E%3Cbutton%20id=%22previousMonthsBtn%22%20style=%22font-size:1.2em;padding:12px%2024px;width:180px;height:50px;margin:5px%200;border-radius:8px;background:%23A9A9A9;color:%23fff;border:none;cursor:pointer;display:block;%22%3EPrevious%20Months%3C/button%3E%3C/div%3E%3Cdiv%20id=%22colorSettings%22%20style=%22display:none;padding:15px;background:rgba(0,0,0,0.7);border:1px%20solid%20%23333;border-radius:8px;%22%3E%3Cdiv%20style=%22width:30px;height:30px;background:%231A2526;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;%22%20data-color=%22%231A2526%22%3E%3C/div%3E%3Cdiv%20style=%22width:30px;height:30px;background:%23000000;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;%22%20data-color=%22%23000000%22%3E%3C/div%3E%3Cdiv%20style=%22width:30px;height:30px;background:%23FFFFFF;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;%22%20data-color=%22%23FFFFFF%22%3E%3C/div%3E%3Cdiv%20style=%22width:30px;height:30px;background:%23FFFDD0;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;%22%20data-color=%22%23FFFDD0%22%3E%3C/div%3E%3C/div%3E%3Cdiv%20id=%22billsWindow%22%20style=%22display:none;position:fixed;top:20%25;left:10%25;width:80%25;background:%23fff;border:1px%20solid%20%23333;padding:20px;border-radius:8px;%22%3E%3Ch3%20style=%22font-size:1.5em;%22%3EAdd%20Bill%3C/h3%3E%3Cinput%20id=%22billDue%22%20placeholder=%22Due%20Date%20(MM/DD/YYYY)%22%20style=%22font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px%20solid%20%23333;%22%3E%3Cinput%20id=%22billDesc%22%20placeholder=%22Description%22%20style=%22font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px%20solid%20%23333;%22%3E%3Cinput%20id=%22billAmt%22%20type=%22number%22%20placeholder=%22Amount%22%20style=%22font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px%20solid%20%23333;%22%3E%3Cbutton%20id=%22saveBillBtn%22%20style=%22font-size:1.2em;padding:12px%2024px;width:120px;height:50px;margin:5px;border-radius:8px;background:%2350C878;color:%23fff;border:none;cursor:pointer;%22%3ESave%3C/button%3E%3Cbutton%20id=%22closeBillsBtn%22%20style=%22font-size:1.2em;padding:12px%2024px;width:120px;height:50px;margin:5px;border-radius:8px;background:%23FF6B6B;color:%23fff;border:none;cursor:pointer;%22%3EClose%3C/button%3E%3C/div%3E%3Cdiv%20id=%22previousMonths%22%20style=%22display:none;position:absolute;top:40px;right:200px;background:rgba(0,0,0,0.7);border:1px%20solid%20%23333;padding:15px;border-radius:8px;%22%3E%3C/div%3E%3Ctable%20border=%221%22%20style=%22font-size:1.2em;width:100%25;margin:20px%200;border-collapse:collapse;%22%3E%3Ctr%3E%3Cth%20style=%22padding:15px;border:1px%20solid%20%23333;%22%3EDue%20Date%3C/th%3E%3Cth%20style=%22padding:15px;border:1px%20solid%20%23333;%22%3EDescription%3C/th%3E%3Cth%20style=%22padding:15px;border:1px%20solid%20%23333;%22%3EAmount%3C/th%3E%3C/tr%3E%3Ctbody%20id=%22bills%22%3E%3C/tbody%3E%3Ctbody%20id=%22entries%22%3E%3C/tbody%3E%3C/table%3E%3Cinput%20id=%22desc%22%20placeholder=%22Description%22%20style=%22font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px%20solid%20%23333;%22%3E%3Cinput%20id=%22amt%22%20type=%22number%22%20placeholder=%22Amount%22%20style=%22font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px%20solid%20%23333;%22%3E%3Cbutton%20id=%22addBtn%22%20style=%22font-size:1.2em;padding:12px%2024px;width:120px;height:50px;margin:5px;border-radius:8px;background:%234A90E2;color:%23fff;border:none;cursor:pointer;%22%3EAdd%3C/button%3E%3Cbutton%20id=%22exportBtn%22%20style=%22font-size:1.2em;padding:12px%2024px;width:120px;height:50px;margin:5px;border-radius:8px;background:%2350C878;color:%23fff;border:none;cursor:pointer;%22%3EExport%3C/button%3E%3Cbutton%20id=%22importBtn%22%20style=%22font-size:1.2em;padding:12px%2024px;width:120px;height:50px;margin:5px;border-radius:8px;background:%23FF6B6B;color:%23fff;border:none;cursor:pointer;%22%3EImport%3C/button%3E';let%20t=document.getElementById('title');t.style.fontFamily='Comic%20Sans%20MS,%20cursive';t.style.color='%2332CD32';t.style.textShadow='0%200%205px%20%23fff,%200%200%2010px%20%2332CD32,%20-1px%20-1px%200%20%23000,%201px%20-1px%200%20%23000,%20-1px%201px%200%20%23000,%201px%201px%200%20%23000';t.style.fontSize='2.5em';t.style.webkitTextStroke='1px%20black';let%20s=document.getElementById('subtitle');s.style.color='%23000000';s.style.fontSize='1.5em';s.style.margin='0%200%2010px%200';let%20d=document.getElementById('datetime');d.style.color='%23000000';function%20updateDateTime()%7Blet%20n=new%20Date();d.innerText=n.toLocaleDateString()+'%20'+n.toLocaleTimeString();%7DupdateDateTime();setInterval(updateDateTime,1000);let%20currentMonth=new%20Date().toLocaleString('default',%7Bmonth:'long',year:'numeric'%7D),lastMonth=localStorage.getItem('lastMonth');if(!lastMonth%7C%7ClastMonth!==currentMonth)%7Bif(confirm('A%20new%20month%20has%20started%20('+currentMonth+').%20Would%20you%20like%20to%20save%20the%20current%20data%20for%20the%20previous%20month?'))%7Blet%20dataToSave=%7Bbills:JSON.parse(localStorage.getItem('bills')%7C%7C'%5B%5D'),entries:JSON.parse(localStorage.getItem('budget')%7C%7C'%5B%5D')%7D,saveKey='previousMonth_'+new%20Date().toISOString().split('T')%5B0%5D;localStorage.setItem(saveKey,JSON.stringify(dataToSave));alert('Data%20saved%20for%20'+saveKey);localStorage.setItem('lastMonth',currentMonth);let%20bills=JSON.parse(localStorage.getItem('bills')%7C%7C'%5B%5D');bills.forEach(b=%3E%7Blet%20dueDate=new%20Date(b.due);if(dueDate.getDate())%7BdueDate.setMonth(dueDate.getMonth()+1);b.due=dueDate.toLocaleDateString('en-US',%7Bmonth:'2-digit',day:'2-digit',year:'numeric'%7D);%7D%7D);localStorage.setItem('bills',JSON.stringify(bills));localStorage.setItem('budget','%5B%5D');%7D%7Dlet%20e=localStorage.getItem('budget')?JSON.parse(localStorage.getItem('budget')):%5B%5D;let%20b=localStorage.getItem('bills')?JSON.parse(localStorage.getItem('bills')):%5B%5D;let%20bg=localStorage.getItem('bgColor')%7C%7C'%23FFFFFF';document.body.style.backgroundColor=bg;let%20bt=document.getElementById('bills'),et=document.getElementById('entries');function%20rB()%7Bbt.innerHTML='';b.forEach((bi,i)=%3E%7Blet%20tr=document.createElement('tr');tr.innerHTML=%60%3Ctd%20style=%22padding:15px;border:1px%20solid%20%23333;%22%3E%3Cspan%20style=%22cursor:pointer;text-decoration:underline;%22%20data-index=%22$%7Bi%7D%22%3E$%7Bbi.due%7D%3C/span%3E%3C/td%3E%3Ctd%20style=%22padding:15px;border:1px%20solid%20%23333;%22%3E$%7Bbi.desc%7D%3C/td%3E%3Ctd%20style=%22padding:15px;border:1px%20solid%20%23333;%22%3E$%7Bbi.amt%7D%3C/td%3E%60;bt.appendChild(tr);tr.querySelector('span').addEventListener('click',function()%7Bif(confirm('Are%20you%20sure%20you%20want%20to%20delete%20this%20bill%20entry?'))%7Bb.splice(i,1);localStorage.setItem('bills',JSON.stringify(b));rB();alert('Bill%20entry%20deleted.');%7D%7D);%7D);%7Dfunction%20rE()%7Bet.innerHTML='';e.forEach((ei,i)=%3E%7Blet%20tr=document.createElement('tr');tr.innerHTML=%60%3Ctd%20style=%22padding:15px;border:1px%20solid%20%23333;%22%3E%3Cspan%20style=%22cursor:pointer;text-decoration:underline;%22%20data-index=%22$%7Bi%7D%22%3E$%7Bei.date%7D%3C/span%3E%3C/td%3E%3Ctd%20style=%22padding:15px;border:1px%20solid%20%23333;%22%3E$%7Bei.desc%7D%3C/td%3E%3Ctd%20style=%22padding:15px;border:1px%20solid%20%23333;%22%3E$%7Bei.amt%7D%3C/td%3E%60;et.appendChild(tr);tr.querySelector('span').addEventListener('click',function()%7Bif(confirm('Are%20you%20sure%20you%20want%20to%20delete%20this%20budget%20entry?'))%7Be.splice(i,1);localStorage.setItem('budget',JSON.stringify(e));rE();alert('Budget%20entry%20deleted.');%7D%7D);%7D);%7DrB();rE();document.getElementById('addBtn').addEventListener('click',function()%7Blet%20desc=document.getElementById('desc').value,amt=document.getElementById('amt').value;if(desc&&amt)%7Blet%20date=new%20Date().toLocaleDateString();e.push(%7Bdate,desc,amt:parseFloat(amt)%7D);localStorage.setItem('budget',JSON.stringify(e));document.getElementById('desc').value='';document.getElementById('amt').value='';rE();alert('Added:%20'+date+'%20%7C%20'+desc+'%20%7C%20'+amt);%7Delse%7Balert('Fill%20both%20fields!');%7D%7D);document.getElementById('exportBtn').addEventListener('click',function()%7Blet%20data=JSON.stringify(%7Bbills:b,entries:e%7D);prompt('Copy%20this%20JSON:',data);%7D);document.getElementById('importBtn').addEventListener('click',function()%7Blet%20data=prompt('Paste%20JSON%20here:');if(data)%7Btry%7Blet%20imported=JSON.parse(data);b=imported.bills%7C%7C%5B%5D;e=imported.entries%7C%7C%5B%5D;localStorage.setItem('bills',JSON.stringify(b));localStorage.setItem('budget',JSON.stringify(e));rB();rE();alert('Imported!');%7Dcatch(e)%7Balert('Invalid%20JSON:%20'+e);%7D%7D%7D);let%20m=document.getElementById('menu'),mb=document.getElementById('menuBtn'),cs=document.getElementById('colorSettings'),csb=document.getElementById('colorSettingsBtn'),bw=document.getElementById('billsWindow'),ib=document.getElementById('importBillsBtn'),sb=document.getElementById('saveBillBtn'),cb=document.getElementById('closeBillsBtn'),pm=document.getElementById('previousMonths'),pmb=document.getElementById('previousMonthsBtn'),hb=document.getElementById('homeBtn');mb.addEventListener('click',function()%7Bm.style.display=m.style.display==='none'?'block':'none';cs.style.display='none';bw.style.display='none';pm.style.display='none';%7D);csb.addEventListener('click',function()%7Bcs.style.display=cs.style.display==='none'?'block':'none';pm.style.display='none';%7D);ib.addEventListener('click',function()%7Bbw.style.display='block';m.style.display='none';pm.style.display='none';%7D);sb.addEventListener('click',function()%7Blet%20due=document.getElementById('billDue').value,desc=document.getElementById('billDesc').value,amt=document.getElementById('billAmt').value;if(due&&desc&&amt)%7Bb.push(%7Bdue,desc,amt:parseFloat(amt)%7D);localStorage.setItem('bills',JSON.stringify(b));document.getElementById('billDue').value='';document.getElementById('billDesc').value='';document.getElementById('billAmt').value='';rB();bw.style.display='none';alert('Bill%20added:%20'+due+'%20%7C%20'+desc+'%20%7C%20'+amt);%7Delse%7Balert('Fill%20all%20bill%20fields!');%7D%7D);cb.addEventListener('click',function()%7Bbw.style.display='none';%7D);pmb.addEventListener('click',function()%7Bpm.style.display=pm.style.display==='none'?'block':'none';cs.style.display='none';bw.style.display='none';if(pm.innerHTML==='')%7Blet%20keys=Object.keys(localStorage).filter(k=%3Ek.startsWith('previousMonth_'));pm.innerHTML='%3Ch3%20style=%22font-size:1.5em;color:%23fff;%22%3EPrevious%20Months%3C/h3%3E';keys.forEach(k=%3E%7Blet%20date=k.replace('previousMonth_',''),container=document.createElement('div'),btn=document.createElement('button'),delBtn=document.createElement('button');btn.textContent=date;btn.style.fontSize='1.2em';btn.style.padding='12px%2024px';btn.style.margin='5px%200';btn.style.width='180px';btn.style.height='50px';btn.style.borderRadius='8px';btn.style.background='%234A90E2';btn.style.color='%23fff';btn.style.border='none';btn.style.cursor='pointer';btn.style.display='block';delBtn.textContent='Delete';delBtn.style.fontSize='1.2em';delBtn.style.padding='12px%2024px';delBtn.style.margin='5px%200';delBtn.style.width='120px';delBtn.style.height='50px';delBtn.style.borderRadius='8px';delBtn.style.background='%23FF6B6B';delBtn.style.color='%23fff';delBtn.style.border='none';delBtn.style.cursor='pointer';delBtn.style.display='block';delBtn.addEventListener('click',function()%7Bif(confirm('Are%20you%20sure%20you%20want%20to%20delete%20the%20save%20for%20'+date+'?'))%7BlocalStorage.removeItem(k);alert('Save%20for%20'+date+'%20deleted.');pm.innerHTML='';pmb.click();%7D%7D);btn.addEventListener('click',function()%7Blet%20data=JSON.parse(localStorage.getItem(k));b=data.bills;e=data.entries;localStorage.setItem('bills',JSON.stringify(b));localStorage.setItem('budget',JSON.stringify(e));rB();rE();alert('Loaded%20data%20for%20'+date);pm.style.display='none';%7D);container.appendChild(btn);container.appendChild(delBtn);pm.appendChild(container);%7D);%7D%7D);hb.addEventListener('click',function()%7Be=JSON.parse(localStorage.getItem('budget')%7C%7C'%5B%5D');b=JSON.parse(localStorage.getItem('bills')%7C%7C'%5B%5D');rB();rE();m.style.display='none';alert('Returned%20to%20current%20month%5C's%20spreadsheet.');%7D);let%20cd=colorSettings.getElementsByTagName('div');for(let%20i=0;i%3Ccd.length;i++)%7Bcd%5Bi%5D.addEventListener('click',function()%7Blet%20c=this.getAttribute('data-color');document.body.style.backgroundColor=c;localStorage.setItem('bgColor',c);uTC(c);m.style.display='none';cs.style.display='none';%7D);%7Dfunction%20uTC(bgC)%7Blet%20isD=(bgC==='%231A2526'%7C%7CbgC==='%23000000');let%20tC=isD?'%23FFFFFF':'%23000000';document.getElementById('subtitle').style.color=tC;document.getElementById('datetime').style.color=tC;document.querySelectorAll('input,%20button,%20table,%20th,%20td').forEach(e=%3E%7Be.style.color=tC;%7D);%7DuTC(bg);%7Dcatch(e)%7Balert('Error:%20'+e);%7D%7D)();
+try {
+    document.body.innerHTML = '<div style="position:relative;"><h1 id="title">Budgetable By Devlin</h1><button id="menuBtn" style="position:absolute;top:0;right:0;font-size:2em;border:none;background:none;cursor:pointer;">☰</button></div><p id="subtitle">budgeting made easy for everyone</p><p id="datetime" style="font-size:1.2em;"></p><div id="menu" style="display:none;position:absolute;top:40px;right:0;background:rgba(0,0,0,0.7);border:1px solid #333;padding:15px;"><button id="homeBtn" style="font-size:1.2em;padding:12px 24px;width:180px;height:50px;margin:5px 0;border-radius:8px;background:#4A90E2;color:#fff;border:none;cursor:pointer;display:block;">Home</button><button id="colorSettingsBtn" style="font-size:1.2em;padding:12px 24px;width:180px;height:50px;margin:5px 0;border-radius:8px;background:#50C878;color:#fff;border:none;cursor:pointer;display:block;">Color Settings</button><button id="importBillsBtn" style="font-size:1.2em;padding:12px 24px;width:180px;height:50px;margin:5px 0;border-radius:8px;background:#FF6B6B;color:#fff;border:none;cursor:pointer;display:block;">Import Bills</button><button id="previousMonthsBtn" style="font-size:1.2em;padding:12px 24px;width:180px;height:50px;margin:5px 0;border-radius:8px;background:#A9A9A9;color:#fff;border:none;cursor:pointer;display:block;">Previous Months</button></div><div id="colorSettings" style="display:none;padding:15px;background:rgba(0,0,0,0.7);border:1px solid #333;border-radius:8px;"><div style="width:30px;height:30px;background:#1A2526;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#1A2526"></div><div style="width:30px;height:30px;background:#000000;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#000000"></div><div style="width:30px;height:30px;background:#FFFFFF;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#FFFFFF"></div><div style="width:30px;height:30px;background:#FFFDD0;display:inline-block;cursor:pointer;margin:5px;border-radius:4px;" data-color="#FFFDD0"></div></div><div id="billsWindow" style="display:none;position:fixed;top:20%;left:10%;width:80%;background:#fff;border:1px solid #333;padding:20px;border-radius:8px;"><h3 style="font-size:1.5em;">Add Bill</h3><input id="billDue" placeholder="Due Date (MM/DD/YYYY)" style="font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px solid #333;"><input id="billDesc" placeholder="Description" style="font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px solid #333;"><input id="billAmt" type="number" placeholder="Amount" style="font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px solid #333;"><button id="saveBillBtn" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;border-radius:8px;background:#50C878;color:#fff;border:none;cursor:pointer;">Save</button><button id="closeBillsBtn" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;border-radius:8px;background:#FF6B6B;color:#fff;border:none;cursor:pointer;">Close</button></div><div id="previousMonths" style="display:none;position:absolute;top:40px;right:200px;background:rgba(0,0,0,0.7);border:1px solid #333;padding:15px;border-radius:8px;"></div><table border="1" style="font-size:1.2em;width:100%;margin:20px 0;border-collapse:collapse;"><tr><th style="padding:15px;border:1px solid #333;">Due Date</th><th style="padding:15px;border:1px solid #333;">Description</th><th style="padding:15px;border:1px solid #333;">Amount</th></tr><tbody id="bills"></tbody><tbody id="entries"></tbody></table><input id="desc" placeholder="Description" style="font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px solid #333;"><input id="amt" type="number" placeholder="Amount" style="font-size:1.2em;padding:12px;margin:5px;border-radius:8px;border:1px solid #333;"><button id="addBtn" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;border-radius:8px;background:#4A90E2;color:#fff;border:none;cursor:pointer;">Add</button><button id="exportBtn" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;border-radius:8px;background:#50C878;color:#fff;border:none;cursor:pointer;">Export</button><button id="importBtn" style="font-size:1.2em;padding:12px 24px;width:120px;height:50px;margin:5px;border-radius:8px;background:#FF6B6B;color:#fff;border:none;cursor:pointer;">Import</button>';
+
+    let t = document.getElementById('title');
+    t.style.fontFamily = 'Comic Sans MS, cursive';
+    t.style.color = '#32CD32';
+    t.style.textShadow = '0 0 5px #fff, 0 0 10px #32CD32, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000';
+    t.style.fontSize = '2.5em';
+    t.style.webkitTextStroke = '1px black';
+
+    let s = document.getElementById('subtitle');
+    s.style.color = '#000000';
+    s.style.fontSize = '1.5em';
+    s.style.margin = '0 0 10px 0';
+
+    let d = document.getElementById('datetime');
+    d.style.color = '#000000';
+
+    function updateDateTime() {
+        let n = new Date();
+        d.innerText = n.toLocaleDateString() + ' ' + n.toLocaleTimeString();
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+
+    let currentMonth = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+    let lastMonth = localStorage.getItem('lastMonth');
+    if (!lastMonth || lastMonth !== currentMonth) {
+        if (confirm('A new month has started (' + currentMonth + '). Would you like to save the current data for the previous month?')) {
+            let dataToSave = { bills: JSON.parse(localStorage.getItem('bills') || '[]'), entries: JSON.parse(localStorage.getItem('budget') || '[]') };
+            let saveKey = 'previousMonth_' + new Date().toISOString().split('T')[0];
+            localStorage.setItem(saveKey, JSON.stringify(dataToSave));
+            alert('Data saved for ' + saveKey);
+            localStorage.setItem('lastMonth', currentMonth);
+            let bills = JSON.parse(localStorage.getItem('bills') || '[]');
+            bills.forEach(b => {
+                let dueDate = new Date(b.due);
+                if (dueDate.getDate()) {
+                    dueDate.setMonth(dueDate.getMonth() + 1);
+                    b.due = dueDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+                }
+            });
+            localStorage.setItem('bills', JSON.stringify(bills));
+            localStorage.setItem('budget', '[]');
+        }
+    }
+
+    let e = localStorage.getItem('budget') ? JSON.parse(localStorage.getItem('budget')) : [];
+    let b = localStorage.getItem('bills') ? JSON.parse(localStorage.getItem('bills')) : [];
+    let bg = localStorage.getItem('bgColor') || '#FFFFFF';
+    document.body.style.backgroundColor = bg;
+
+    let bt = document.getElementById('bills');
+    let et = document.getElementById('entries');
+
+    function rB() {
+        bt.innerHTML = '';
+        b.forEach((bi, i) => {
+            let tr = document.createElement('tr');
+            tr.innerHTML = `<td style="padding:15px;border:1px solid #333;"><span style="cursor:pointer;text-decoration:underline;" data-index="${i}">${bi.due}</span></td><td style="padding:15px;border:1px solid #333;">${bi.desc}</td><td style="padding:15px;border:1px solid #333;">${bi.amt}</td>`;
+            bt.appendChild(tr);
+            tr.querySelector('span').addEventListener('click', function () {
+                if (confirm('Are you sure you want to delete this bill entry?')) {
+                    b.splice(i, 1);
+                    localStorage.setItem('bills', JSON.stringify(b));
+                    rB();
+                    alert('Bill entry deleted.');
+                }
+            });
+        });
+    }
+
+    function rE() {
+        et.innerHTML = '';
+        e.forEach((ei, i) => {
+            let tr = document.createElement('tr');
+            tr.innerHTML = `<td style="padding:15px;border:1px solid #333;"><span style="cursor:pointer;text-decoration:underline;" data-index="${i}">${ei.date}</span></td><td style="padding:15px;border:1px solid #333;">${ei.desc}</td><td style="padding:15px;border:1px solid #333;">${ei.amt}</td>`;
+            et.appendChild(tr);
+            tr.querySelector('span').addEventListener('click', function () {
+                if (confirm('Are you sure you want to delete this budget entry?')) {
+                    e.splice(i, 1);
+                    localStorage.setItem('budget', JSON.stringify(e));
+                    rE();
+                    alert('Budget entry deleted.');
+                }
+            });
+        });
+    }
+
+    rB();
+    rE();
+
+    document.getElementById('addBtn').addEventListener('click', function () {
+        let desc = document.getElementById('desc').value;
+        let amt = document.getElementById('amt').value;
+        if (desc && amt) {
+            let date = new Date().toLocaleDateString();
+            e.push({ date, desc, amt: parseFloat(amt) });
+            localStorage.setItem('budget', JSON.stringify(e));
+            document.getElementById('desc').value = '';
+            document.getElementById('amt').value = '';
+            rE();
+            alert('Added: ' + date + ' | ' + desc + ' | ' + amt);
+        } else {
+            alert('Fill both fields!');
+        }
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', function () {
+        let data = JSON.stringify({ bills: b, entries: e });
+        prompt('Copy this JSON:', data);
+    });
+
+    document.getElementById('importBtn').addEventListener('click', function () {
+        let data = prompt('Paste JSON here:');
+        if (data) {
+            try {
+                let imported = JSON.parse(data);
+                b = imported.bills || [];
+                e = imported.entries || [];
+                localStorage.setItem('bills', JSON.stringify(b));
+                localStorage.setItem('budget', JSON.stringify(e));
+                rB();
+                rE();
+                alert('Imported!');
+            } catch (e) {
+                alert('Invalid JSON: ' + e);
+            }
+        }
+    });
+
+    let m = document.getElementById('menu');
+    let mb = document.getElementById('menuBtn');
+    let cs = document.getElementById('colorSettings');
+    let csb = document.getElementById('colorSettingsBtn');
+    let bw = document.getElementById('billsWindow');
+    let ib = document.getElementById('importBillsBtn');
+    let sb = document.getElementById('saveBillBtn');
+    let cb = document.getElementById('closeBillsBtn');
+    let pm = document.getElementById('previousMonths');
+    let pmb = document.getElementById('previousMonthsBtn');
+    let hb = document.getElementById('homeBtn');
+
+    mb.addEventListener('click', function () {
+        m.style.display = m.style.display === 'none' ? 'block' : 'none';
+        cs.style.display = 'none';
+        bw.style.display = 'none';
+        pm.style.display = 'none';
+    });
+
+    csb.addEventListener('click', function () {
+        cs.style.display = cs.style.display === 'none' ? 'block' : 'none';
+        pm.style.display = 'none';
+    });
+
+    ib.addEventListener('click', function () {
+        bw.style.display = 'block';
+        m.style.display = 'none';
+        pm.style.display = 'none';
+    });
+
+    sb.addEventListener('click', function () {
+        let due = document.getElementById('billDue').value;
+        let desc = document.getElementById('billDesc').value;
+        let amt = document.getElementById('billAmt').value;
+        if (due && desc && amt) {
+            b.push({ due, desc, amt: parseFloat(amt) });
+            localStorage.setItem('bills', JSON.stringify(b));
+            document.getElementById('billDue').value = '';
+            document.getElementById('billDesc').value = '';
+            document.getElementById('billAmt').value = '';
+            rB();
+            bw.style.display = 'none';
+            alert('Bill added: ' + due + ' | ' + desc + ' | ' + amt);
+        } else {
+            alert('Fill all bill fields!');
+        }
+    });
+
+    cb.addEventListener('click', function () {
+        bw.style.display = 'none';
+    });
+
+    pmb.addEventListener('click', function () {
+        pm.style.display = pm.style.display === 'none' ? 'block' : 'none';
+        cs.style.display = 'none';
+        bw.style.display = 'none';
+        if (pm.innerHTML === '') {
+            let keys = Object.keys(localStorage).filter(k => k.startsWith('previousMonth_'));
+            pm.innerHTML = '<h3 style="font-size:1.5em;color:#fff;">Previous Months</h3>';
+            keys.forEach(k => {
+                let date = k.replace('previousMonth_', '');
+                let container = document.createElement('div');
+                let btn = document.createElement('button');
+                let delBtn = document.createElement('button');
+                btn.textContent = date;
+                btn.style.fontSize = '1.2em';
+                btn.style.padding = '12px 24px';
+                btn.style.margin = '5px 0';
+                btn.style.width = '180px';
+                btn.style.height = '50px';
+                btn.style.borderRadius = '8px';
+                btn.style.background = '#4A90E2';
+                btn.style.color = '#fff';
+                btn.style.border = 'none';
+                btn.style.cursor = 'pointer';
+                btn.style.display = 'block';
+                delBtn.textContent = 'Delete';
+                delBtn.style.fontSize = '1.2em';
+                delBtn.style.padding = '12px 24px';
+                delBtn.style.margin = '5px 0';
+                delBtn.style.width = '120px';
+                delBtn.style.height = '50px';
+                delBtn.style.borderRadius = '8px';
+                delBtn.style.background = '#FF6B6B';
+                delBtn.style.color = '#fff';
+                delBtn.style.border = 'none';
+                delBtn.style.cursor = 'pointer';
+                delBtn.style.display = 'block';
+                delBtn.addEventListener('click', function () {
+                    if (confirm('Are you sure you want to delete the save for ' + date + '?')) {
+                        localStorage.removeItem(k);
+                        alert('Save for ' + date + ' deleted.');
+                        pm.innerHTML = '';
+                        pmb.click();
+                    }
+                });
+                btn.addEventListener('click', function () {
+                    let data = JSON.parse(localStorage.getItem(k));
+                    b = data.bills;
+                    e = data.entries;
+                    localStorage.setItem('bills', JSON.stringify(b));
+                    localStorage.setItem('budget', JSON.stringify(e));
+                    rB();
+                    rE();
+                    alert('Loaded data for ' + date);
+                    pm.style.display = 'none';
+                });
+                container.appendChild(btn);
+                container.appendChild(delBtn);
+                pm.appendChild(container);
+            });
+        }
+    });
+
+    hb.addEventListener('click', function () {
+        e = JSON.parse(localStorage.getItem('budget') || '[]');
+        b = JSON.parse(localStorage.getItem('bills') || '[]');
+        rB();
+        rE();
+        m.style.display = 'none';
+        alert("Returned to current month's spreadsheet.");
+    });
+
+    let cd = colorSettings.getElementsByTagName('div');
+    for (let i = 0; i < cd.length; i++) {
+        cd[i].addEventListener('click', function () {
+            let c = this.getAttribute('data-color');
+            document.body.style.backgroundColor = c;
+            localStorage.setItem('bgColor', c);
+            uTC(c);
+            m.style.display = 'none';
+            cs.style.display = 'none';
+        });
+    }
+
+    function uTC(bgC) {
+        let isD = (bgC === '#1A2526' || bgC === '#000000');
+        let tC = isD ? '#FFFFFF' : '#000000';
+        document.getElementById('subtitle').style.color = tC;
+        document.getElementById('datetime').style.color = tC;
+        document.querySelectorAll('input, button, table, th, td').forEach(e => {
+            e.style.color = tC;
+        });
+    }
+    uTC(bg);
+} catch (e) {
+    alert('Error: ' + e);
+}
