@@ -38,8 +38,19 @@ document.addEventListener('DOMContentLoaded', () => {
     if (addExpense) addExpense.addEventListener('click', () => document.getElementById('add-expense-modal').classList.remove('hidden'));
     if (colorOptions) colorOptions.addEventListener('click', () => document.getElementById('color-modal').classList.remove('hidden'));
 
+    // Close modals
     document.getElementById('cancel-bill')?.addEventListener('click', () => document.getElementById('add-bill-modal').classList.add('hidden'));
     document.getElementById('cancel-expense')?.addEventListener('click', () => document.getElementById('add-expense-modal').classList.add('hidden'));
+
+    // Close color modal when clicking outside or cancel (if cancel button exists)
+    const colorModal = document.getElementById('color-modal');
+    if (colorModal) {
+        colorModal.addEventListener('click', (e) => {
+            if (e.target === colorModal) {
+                colorModal.classList.add('hidden');
+            }
+        });
+    }
 
     // Color changing
     document.querySelectorAll('.color-btn').forEach(btn => {
@@ -56,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const settings = JSON.parse(localStorage.getItem('settings')) || {};
     if (settings.backgroundColor) {
         document.body.style.backgroundColor = settings.backgroundColor;
-        document.body.style.color = settings.color;
+        document.body.style.color = settings.color || ((settings.backgroundColor === '#ffffff' || settings.backgroundColor === '#f5f5dc') ? '#000000' : '#ffffff');
     }
 
     // Import/Export
