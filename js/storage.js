@@ -1,38 +1,43 @@
 function saveSheet(sheet) {
     let pastSheets = JSON.parse(localStorage.getItem('pastSheets')) || [];
-    pastSheets.push(sheet);
+    const existingIndex = pastSheets.findIndex(s => s.month === sheet.month);
+    if (existingIndex !== -1) {
+        pastSheets[existingIndex] = sheet; // Update existing month
+    } else {
+        pastSheets.push(sheet); // Add new month
+    }
     localStorage.setItem('pastSheets', JSON.stringify(pastSheets));
-}
-
-function getPastSheets() {
-    return JSON.parse(localStorage.getItem('pastSheets')) || [];
 }
 
 function exportData() {
     const data = {
         currentSheet,
-        pastSheets: getPastSheets(),
-        settings: {
-            backgroundColor: document.body.style.backgroundColor,
-            color: document.body.style.color
-        }
+        pastSheets: JSON.parse(localStorage.getItem('pastSheets')) || [],
+        settings: JSON.parse(localStorage.getItem('settings')) || {}
     };
-    return btoa(JSON.stringify(data));
+    const encoded = btoa(JSON.stringify(data));
+    prompt('Copy this code to save your data:', encoded);
 }
 
-function importData(encoded) {
-    try {
-        const data = JSON.parse(atob(encoded));
-        currentSheet = data.currentSheet;
-        localStorage.setItem('pastSheets', JSON.stringify(data.pastSheets));
-        localStorage.setItem('currentSheet', JSON.stringify(currentSheet));
-        localStorage.setItem('settings', JSON.stringify(data.settings));
-        document.body.style.backgroundColor = data.settings.backgroundColor;
-        document.body.style.color = data.settings.color;
-        renderSpreadsheet();
-        alert('Data imported successfully!');
-        window.location.reload();
-    } catch (e) {
-        alert('Invalid import code.');
+function importData() {
+    const encoded = prompt('Paste your import code:');
+    if (encoded) {
+        try {
+            const data = JSON.parse(atob(encoded));
+            currentSheet = data.currentSheet;
+            localStorage.setItem('pastSheets', JSON.stringify(data.pastSheets));
+            localStorage.setItem('settings', JSON.stringify(data.settings));
+            renderSpreadsheet();
+            alert('Data imported successfully!');
+        } catch (e) {
+            alert('Invalid import code.');
+        }
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const exportBtn = document.getElementById('export');
+    const importBtn = document.getElementById('import');
+    if (exportBtn) exportBtn.addEventListener('click', exportData);
+    if (importBtn) importBtn.addEventListener('click', importData);
+});
