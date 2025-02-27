@@ -16,11 +16,11 @@ body {
 .side-menu {
     position: fixed;
     top: 0;
-    right: -250px;
+    left: -250px;
     width: 250px;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
-    transition: right 0.3s ease;
+    transition: left 0.3s ease;
     z-index: 1000;
 }
 
@@ -67,12 +67,17 @@ body {
     bottom: -10px;
 }
 
+.hamburger-css.open {
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+}
+
 .menu-open .page-wrapper {
-    transform: translateX(-250px);
+    transform: translateX(250px);
 }
 
 .menu-open .side-menu {
-    right: 0;
+    left: 0;
 }
 
 .modal {
