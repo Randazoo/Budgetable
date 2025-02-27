@@ -1,10 +1,10 @@
 function saveSheet(sheet) {
     let pastSheets = JSON.parse(localStorage.getItem('pastSheets')) || [];
-    const existingIndex = pastSheets.findIndex(s => s.month === sheet.month);
-    if (existingIndex !== -1) {
-        pastSheets[existingIndex] = sheet; // Update existing month
+    const index = pastSheets.findIndex(s => s.month === sheet.month);
+    if (index !== -1) {
+        pastSheets[index] = sheet;
     } else {
-        pastSheets.push(sheet); // Add new month
+        pastSheets.push(sheet);
     }
     localStorage.setItem('pastSheets', JSON.stringify(pastSheets));
 }
