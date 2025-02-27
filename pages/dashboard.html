@@ -1,1 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Budgetable</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/animations.css">
+</head>
+<body>
+    <header>
+        <img id="hamburger" src="../assets/images/hamburger.png" alt="Menu" />
+        <nav id="menu" class="hidden">
+            <ul>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="#" id="add-bills">Add Bills to Dashboard</a></li>
+                <li><a href="past-sheets.html">Past Sheets</a></li>
+                <li><a href="#" id="color-options">Color Options</a></li>
+                <li><a href="#" id="import">Import</a></li>
+                <li><a href="#" id="export">Export</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Budgetable, By Devlin</h1>
+        <h2>Budgeting made easier for everyone</h2>
+        <p id="datetime"></p>
+        <div id="spreadsheet">
+            <div class="table-section">
+                <h3>Bills</h3>
+                <table id="bills-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="table-section">
+                <h3>Expenses</h3>
+                <table id="expenses-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <button id="save-sheet">Save</button>
+        </div>
+        <button id="add-expense">Add Expense</button>
+    </main>
 
+    <!-- Modals -->
+    <div id="add-bill-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Add Bill</h3>
+            <label for="bill-date">Date:</label>
+            <input type="text" id="bill-date" placeholder="MMDDYYYY">
+            <label for="bill-description">Description:</label>
+            <input type="text" id="bill-description">
+            <label for="bill-amount">Amount:</label>
+            <input type="number" id="bill-amount" step="0.01">
+            <button id="submit-bill">Add</button>
+            <button id="cancel-bill">Cancel</button>
+        </div>
+    </div>
+
+    <div id="add-expense-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Add Expense</h3>
+            <label for="expense-description">Description:</label>
+            <input type="text" id="expense-description">
+            <label for="expense-amount">Amount:</label>
+            <input type="number" id="expense-amount" step="0.01">
+            <button id="submit-expense">Add</button>
+            <button id="cancel-expense">Cancel</button>
+        </div>
+    </div>
+
+    <div id="color-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Choose Background Color</h3>
+            <button class="color-btn" data-color="#001f3f">Shadowy Navy Blue</button>
+            <button class="color-btn" data-color="#000000">Black</button>
+            <button class="color-btn" data-color="#ffffff">White</button>
+            <button class="color-btn" data-color="#f5f5dc">Cream White</button>
+        </div>
+    </div>
+
+    <script src="../js/ui.js"></script>
+    <script src="../js/storage.js"></script>
+    <script src="../js/budget.js"></script>
+</body>
+</html>
