@@ -4,6 +4,17 @@ let currentSheet = JSON.parse(localStorage.getItem('currentSheet')) || {
     expenses: []
 };
 
+const currentMonth = new Date().toLocaleString('default', { month: 'long', year: 'numeric' });
+if (currentSheet.month !== currentMonth) {
+    saveSheet(currentSheet);
+    currentSheet = {
+        month: currentMonth,
+        bills: currentSheet.bills, // Carry over recurring bills
+        expenses: []
+    };
+    localStorage.setItem('currentSheet', JSON.stringify(currentSheet));
+}
+
 function formatDate(input) {
     const clean = input.replace(/\D/g, '');
     if (clean.length >= 8) {
@@ -29,7 +40,7 @@ function addExpense(description, amount) {
 }
 
 function deleteItem(type, index) {
-    if (confirm(`Are you sure you want to delete this ${type.slice(0, -1)}?`)) {
+    if (confirm('Are you sure you want to delete this item?')) {
         currentSheet[type].splice(index, 1);
         renderSpreadsheet();
         localStorage.setItem('currentSheet', JSON.stringify(currentSheet));
@@ -44,13 +55,13 @@ function renderSpreadsheet() {
 
     currentSheet.bills.forEach((bill, index) => {
         const row = document.createElement('tr');
-        row.innerHTML = `<td>${bill.date}</td><td>${bill.description}</td><td>$${bill.amount.toFixed(2)}</td><td><button onclick="deleteItem('bills', ${index})">Delete</button></td>`;
+        row.innerHTML = `<td><a href="#" onclick="deleteItem('bills', ${index}); return false;">${bill.date}</a></td><td>${bill.description}</td><td>$${bill.amount.toFixed(2)}</td>`;
         billsTable.appendChild(row);
     });
 
     currentSheet.expenses.forEach((expense, index) => {
         const row = document.createElement('tr');
-        row.innerHTML = `<td>${expense.date}</td><td>${expense.description}</td><td>$${expense.amount.toFixed(2)}</td><td><button onclick="deleteItem('expenses', ${index})">Delete</button></td>`;
+        row.innerHTML = `<td><a href="#" onclick="deleteItem('expenses', ${index}); return false;">${expense.date}</a></td><td>${expense.description}</td><td>$${expense.amount.toFixed(2)}</td>`;
         expensesTable.appendChild(row);
     });
 }
@@ -88,12 +99,5 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('save-sheet').addEventListener('click', () => {
         saveSheet(currentSheet);
         alert('Sheet saved!');
-        currentSheet = {
-            month: new Date().toLocaleString('default', { month: 'long', year: 'numeric' }),
-            bills: currentSheet.bills, // Carry over recurring bills
-            expenses: []
-        };
-        localStorage.setItem('currentSheet', JSON.stringify(currentSheet));
-        renderSpreadsheet();
     });
 });
