@@ -15,10 +15,30 @@ header {
     padding: 10px;
 }
 
-#hamburger {
+.hamburger-css {
     width: 32px;
-    height: 32px;
+    height: 4px;
+    background-color: #fff;
+    position: relative;
     cursor: pointer;
+}
+
+.hamburger-css::before,
+.hamburger-css::after {
+    content: '';
+    width: 32px;
+    height: 4px;
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+}
+
+.hamburger-css::before {
+    top: -10px;
+}
+
+.hamburger-css::after {
+    bottom: -10px;
 }
 
 #menu {
