@@ -16,7 +16,7 @@ body {
 .side-menu {
     position: fixed;
     top: 0;
-    left: -250px;
+    left: -250px; /* Initially off-screen to the left */
     width: 250px;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
@@ -72,14 +72,16 @@ body {
     transition: transform 0.3s ease;
 }
 
-.menu-open .page-wrapper {
-    transform: translateX(250px);
+/* When menu is open, slide it in and shift the page */
+body.menu-open .page-wrapper {
+    transform: translateX(250px); /* Shift page content right */
 }
 
-.menu-open .side-menu {
-    left: 0;
+body.menu-open .side-menu {
+    left: 0; /* Slide menu in from the left */
 }
 
+/* Modal styles (unchanged) */
 .modal {
     position: fixed;
     top: 0;
