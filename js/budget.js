@@ -66,6 +66,18 @@ function renderSpreadsheet() {
     });
 }
 
+function saveSheet(sheet) {
+    let pastSheets = JSON.parse(localStorage.getItem('pastSheets')) || [];
+    const index = pastSheets.findIndex(s => s.month === sheet.month);
+    if (index !== -1) {
+        pastSheets[index] = sheet; // Update existing month
+    } else {
+        pastSheets.push(sheet); // Add new month
+    }
+    localStorage.setItem('pastSheets', JSON.stringify(pastSheets));
+    alert('Sheet saved successfully!');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     renderSpreadsheet();
 
@@ -98,6 +110,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('save-sheet').addEventListener('click', () => {
         saveSheet(currentSheet);
-        alert('Sheet saved!');
     });
 });
