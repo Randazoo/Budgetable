@@ -55,10 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             const color = btn.getAttribute('data-color');
             document.body.style.backgroundColor = color;
-            const textColor = (color === '#ffffff' || color === '#f5f5dc') ? '#000000' : '#ffffff';
-            document.body.style.color = textColor;
+            const fontColor = (color === '#ffffff' || color === '#f5f5dc') ? '#000000' : '#ffffff';
+            document.body.style.color = fontColor;
             document.getElementById('color-modal').classList.add('hidden');
-            localStorage.setItem('settings', JSON.stringify({ backgroundColor: color, textColor: textColor }));
+            localStorage.setItem('settings', JSON.stringify({ backgroundColor: color, textColor: fontColor }));
         });
     });
 
