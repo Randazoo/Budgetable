@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #001f3f; /* Default shadowy navy blue */
+    background-color: #001f3f; /* Default Shadowy Navy Blue */
     color: #ffffff;
 }
 
@@ -18,9 +18,9 @@ header {
 .hamburger-css {
     width: 32px;
     height: 4px;
-    background-color: #fff;
     position: relative;
     cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth color transition */
 }
 
 .hamburger-css::before,
@@ -28,9 +28,9 @@ header {
     content: '';
     width: 32px;
     height: 4px;
-    background-color: #fff;
     position: absolute;
     left: 0;
+    transition: background-color 0.3s ease;
 }
 
 .hamburger-css::before {
@@ -39,6 +39,21 @@ header {
 
 .hamburger-css::after {
     bottom: -10px;
+}
+
+/* Hamburger icon colors based on background */
+body.light-bg .hamburger-css,
+body.light-bg .hamburger-css::before,
+body.light-bg .hamburger-css::after {
+    background-color: #000000; /* Black on light backgrounds */
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.8); /* Outline for extra contrast */
+}
+
+body.dark-bg .hamburger-css,
+body.dark-bg .hamburger-css::before,
+body.dark-bg .hamburger-css::after {
+    background-color: #ffffff; /* White on dark backgrounds */
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8); /* Outline for extra contrast */
 }
 
 #menu {
@@ -50,6 +65,10 @@ header {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
     display: none;
+}
+
+#menu.show {
+    display: block;
 }
 
 #menu ul {
@@ -73,22 +92,6 @@ header {
     font-size: 18px;
 }
 
-.hidden {
-    display: none;
-}
-
-#menu.show {
-    display: block;
-}
-
-#import {
-    color: #00ff00; /* Green */
-}
-
-#export {
-    color: #ff0000; /* Red */
-}
-
 main {
     padding: 60px 20px 20px;
     text-align: center;
@@ -97,63 +100,6 @@ main {
 h1 {
     font-family: 'Bungee', cursive;
     font-size: 36px;
-}
-
-h2 {
-    font-size: 20px;
-    margin: 10px 0;
-}
-
-#datetime {
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-#spreadsheet {
-    margin: 20px auto;
-    max-width: 800px;
-    position: relative;
-}
-
-.table-section {
-    margin-bottom: 20px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 10px;
-}
-
-th, td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-button {
-    padding: 10px 20px;
-    margin: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #4CAF50;
-    color: white;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-#save-sheet {
-    position: absolute;
-    top: 0;
-    right: 0;
 }
 
 .modal {
@@ -166,7 +112,11 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1001; /* Higher than header (1000) but allows clicks through to hamburger */
+    z-index: 1001;
+}
+
+.modal.hidden {
+    display: none !important; /* High specificity to ensure hiding */
 }
 
 .modal-content {
@@ -177,25 +127,20 @@ button:hover {
     width: 300px;
 }
 
-.modal-content label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
-.modal-content input {
-    width: 100%;
-    padding: 5px;
-    box-sizing: border-box;
-}
-
 .color-btn {
     display: block;
     width: 100%;
     margin: 5px 0;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-#past-sheets-list button {
-    display: block;
-    width: 200px;
-    margin: 10px auto;
+.color-btn:hover {
+    background-color: #45a049;
 }
+
+/* Add more styles as needed for other elements */
