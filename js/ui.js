@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
     const menu = document.getElementById('menu');
 
-    // Toggle sliding menu
+    // Toggle sliding menu and hamburger rotation
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('open');
         document.body.classList.toggle('menu-open');
