@@ -1,146 +1,106 @@
+/* Budgetable/css/main.css */
 body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: linear-gradient(to bottom, #001f3f, #003366); /* Navy blue gradient */
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #001f3f; /* Default Shadowy Navy Blue */
-    color: #ffffff;
 }
 
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    padding: 10px;
-}
-
-.hamburger-css {
-    width: 32px;
-    height: 4px;
+.page-wrapper {
+    transition: transform 0.3s ease;
     position: relative;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth color transition */
+    width: 100%;
 }
 
-.hamburger-css::before,
-.hamburger-css::after {
-    content: '';
-    width: 32px;
-    height: 4px;
-    position: absolute;
-    left: 0;
-    transition: background-color 0.3s ease;
-}
-
-.hamburger-css::before {
-    top: -10px;
-}
-
-.hamburger-css::after {
-    bottom: -10px;
-}
-
-/* Hamburger icon colors based on background */
-body.light-bg .hamburger-css,
-body.light-bg .hamburger-css::before,
-body.light-bg .hamburger-css::after {
-    background-color: #000000; /* Black on light backgrounds */
-    box-shadow: 0 0 2px rgba(255, 255, 255, 0.8); /* Outline for extra contrast */
-}
-
-body.dark-bg .hamburger-css,
-body.dark-bg .hamburger-css::before,
-body.dark-bg .hamburger-css::after {
-    background-color: #ffffff; /* White on dark backgrounds */
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.8); /* Outline for extra contrast */
-}
-
-#menu {
+.side-menu {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    display: none;
-}
-
-#menu.show {
-    display: block;
-}
-
-#menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    right: -250px;
+    width: 250px;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: right 0.3s ease;
+    z-index: 1000;
 }
 
-#menu li {
+.side-menu ul {
+    list-style: none;
+    padding: 20px;
+    margin: 0;
+}
+
+.side-menu li {
     margin: 15px 0;
 }
 
-#menu a {
-    color: inherit;
+.side-menu a {
+    color: #fff;
     text-decoration: none;
     font-size: 18px;
 }
 
-main {
-    padding: 60px 20px 20px;
+.hamburger {
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff;
+    padding: 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.menu-open .page-wrapper {
+    transform: translateX(-250px);
+}
+
+.menu-open .side-menu {
+    right: 0;
+}
+
+.form-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-row label {
+    width: 100px;
+    margin-right: 10px;
+    color: #fff;
+}
+
+.form-row input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px;
+    display: block;
+    width: 150px;
     text-align: center;
 }
 
-h1 {
-    font-family: 'Bungee', cursive;
-    font-size: 36px;
-}
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1001;
-}
-
-.modal.hidden {
-    display: none !important; /* High specificity to ensure hiding */
-}
-
-.modal-content {
-    background-color: #fff;
-    color: #000;
-    padding: 20px;
-    border-radius: 5px;
-    width: 300px;
-}
-
-.color-btn {
-    display: block;
-    width: 100%;
-    margin: 5px 0;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.color-btn:hover {
+button:hover {
     background-color: #45a049;
 }
 
-/* Add more styles as needed for other elements */
+h1 {
+    color: #A0A0A0;
+    text-align: center;
+    font-size: 36px;
+}
+
+p {
+    color: #A0A0A0;
+    text-align: center;
+}
