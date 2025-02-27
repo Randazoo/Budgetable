@@ -9,65 +9,75 @@
     <link rel="stylesheet" href="../css/animations.css">
 </head>
 <body>
-    <header>
-        <div id="hamburger" class="hamburger-css"></div>
-        <nav id="menu" class="hidden">
-            <ul>
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="#" id="add-bills">Add Bills to Dashboard</a></li>
-                <li><a href="past-sheets.html">Past Sheets</a></li>
-                <li><a href="#" id="color-options">Color Options</a></li>
-                <li><a href="#" id="import">Import</a></li>
-                <li><a href="#" id="export">Export</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h1>Budgetable, By Devlin</h1>
-        <h2>Budgeting made easier for everyone</h2>
-        <p id="datetime"></p>
-        <div id="spreadsheet">
-            <div class="table-section">
-                <h3>Bills</h3>
-                <table id="bills-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+    <div class="page-wrapper">
+        <header>
+            <div id="hamburger" class="hamburger-css"></div>
+            <h1>Budgetable, By Devlin</h1>
+            <h2>Budgeting made easier for everyone</h2>
+            <p id="datetime"></p>
+        </header>
+        <main>
+            <div id="spreadsheet">
+                <div class="table-section">
+                    <h3>Bills</h3>
+                    <table id="bills-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="table-section">
+                    <h3>Expenses</h3>
+                    <table id="expenses-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <button id="save-sheet">Save</button>
             </div>
-            <div class="table-section">
-                <h3>Expenses</h3>
-                <table id="expenses-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <button id="save-sheet">Save</button>
-        </div>
-        <button id="add-expense">Add Expense</button>
-    </main>
+            <button id="add-expense">Add Expense</button>
+        </main>
+    </div>
+    <nav id="menu" class="side-menu hidden">
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="#" id="add-bills">Add Bills to Dashboard</a></li>
+            <li><a href="past-sheets.html">Past Sheets</a></li>
+            <li><a href="#" id="color-options">Color Options</a></li>
+            <li><a href="#" id="import">Import</a></li>
+            <li><a href="#" id="export">Export</a></li>
+        </ul>
+    </nav>
 
     <!-- Modals -->
     <div id="add-bill-modal" class="modal hidden">
         <div class="modal-content">
             <h3>Add Bill</h3>
-            <label for="bill-date">Date:</label>
-            <input type="text" id="bill-date" placeholder="MMDDYYYY">
-            <label for="bill-description">Description:</label>
-            <input type="text" id="bill-description">
-            <label for="bill-amount">Amount:</label>
-            <input type="number" id="bill-amount" step="0.01">
+            <div class="form-row">
+                <label for="bill-date">Date:</label>
+                <input type="text" id="bill-date" placeholder="MMDDYYYY">
+            </div>
+            <div class="form-row">
+                <label for="bill-description">Description:</label>
+                <input type="text" id="bill-description">
+            </div>
+            <div class="form-row">
+                <label for="bill-amount">Amount:</label>
+                <input type="number" id="bill-amount" step="0.01">
+            </div>
             <button id="submit-bill">Add</button>
             <button id="cancel-bill">Cancel</button>
         </div>
@@ -76,10 +86,14 @@
     <div id="add-expense-modal" class="modal hidden">
         <div class="modal-content">
             <h3>Add Expense</h3>
-            <label for="expense-description">Description:</label>
-            <input type="text" id="expense-description">
-            <label for="expense-amount">Amount:</label>
-            <input type="number" id="expense-amount" step="0.01">
+            <div class="form-row">
+                <label for="expense-description">Description:</label>
+                <input type="text" id="expense-description">
+            </div>
+            <div class="form-row">
+                <label for="expense-amount">Amount:</label>
+                <input type="number" id="expense-amount" step="0.01">
+            </div>
             <button id="submit-expense">Add</button>
             <button id="cancel-expense">Cancel</button>
         </div>
