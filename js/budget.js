@@ -68,11 +68,17 @@ function renderSpreadsheet() {
 
 function saveSheet(sheet) {
     let pastSheets = JSON.parse(localStorage.getItem('pastSheets')) || [];
+    const saveDate = new Date().toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+    });
+    const sheetWithDate = { ...sheet, saveDate };
     const index = pastSheets.findIndex(s => s.month === sheet.month);
     if (index !== -1) {
-        pastSheets[index] = sheet; // Update existing month
+        pastSheets[index] = sheetWithDate;
     } else {
-        pastSheets.push(sheet); // Add new month
+        pastSheets.push(sheetWithDate);
     }
     localStorage.setItem('pastSheets', JSON.stringify(pastSheets));
     alert('Sheet saved successfully!');
