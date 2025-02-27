@@ -1,72 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Past Sheets - Budgetable</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/animations.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.14/jspdf.plugin.autotable.min.js"></script>
-</head>
-<body>
-    <div class="page-wrapper">
-        <header>
-            <div id="hamburger" class="hamburger-css"></div>
-            <h1>Past Sheets</h1>
-        </header>
-        <main>
-            <button id="back-to-dashboard">Back to Dashboard</button>
-            <div class="sheet-list" id="past-sheets-list"></div>
-            <div id="view-sheet" class="hidden">
-                <h3 id="view-sheet-title"></h3>
-                <table id="view-bills-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-                <table id="view-expenses-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Description</th>
-                            <th>Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-                <button id="export-pdf">Export as PDF</button>
-            </div>
-        </main>
-    </div>
-    <nav id="menu" class="side-menu hidden">
-        <ul>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="#" id="add-bills">Add Bills to Dashboard</a></li>
-            <li><a href="past-sheets.html">Past Sheets</a></li>
-            <li><a href="#" id="color-options">Color Options</a></li>
-            <li><a href="#" id="import">Import</a></li>
-            <li><a href="#" id="export">Export</a></li>
-        </ul>
-    </nav>
+document.addEventListener('DOMContentLoaded', () => {
+    let pastSheets = JSON.parse(localStorage.getItem('pastSheets')) || [];
+    const list = document.getElementById('past-sheets-list');
+    const viewSheet = document.getElementById('view-sheet');
+    const viewTitle = document.getElementById('view-sheet-title');
+    const viewBillsTable = document.getElementById('view-bills-table').querySelector('tbody');
+    const viewExpensesTable = document.getElementById('view-expenses-table').querySelector('tbody');
 
-    <div id="color-modal" class="modal hidden">
-        <div class="modal-content">
-            <h3>Choose Background Color</h3>
-            <button class="color-btn" data-color="#15202B">Shadow</button>
-            <button class="color-btn" data-color="#000000">Black</button>
-            <button class="color-btn" data-color="#ffffff">White</button>
-            <button class="color-btn" data-color="#f5f5dc">Cream White</button>
-        </div>
-    </div>
+    function renderPastSheets() {
+        list.innerHTML = '';
+        pastSheets.forEach((sheet, index) => {
+            const saveDate = sheet.saveDate || new Date().toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+            const sheetDiv = document.createElement('div');
+            sheetDiv.className = 'sheet-item';
+            sheetDiv.innerHTML = `
+                <span>${saveDate}</span>
+                <button class="delete-btn" data-index="${index}">Delete</button>
+            `;
+            sheetDiv.addEventListener('click', () => {
+                list.classList.add('hidden');
+                viewSheet.classList.remove('hidden');
+                viewTitle.textContent = sheet.month;
+                viewBillsTable.innerHTML = '';
+                viewExpensesTable.innerHTML = '';
 
-    <script src="../js/ui.js"></script>
-    <script src="../js/storage.js"></script>
-    <script src="../js/past-sheets.js"></script>
-</body>
-</html>
+                sheet.bills.forEach(bill => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${bill.date}</td><td>${bill.description}</td><td>$${bill.amount.toFixed(2)}</td>`;
+                    viewBillsTable.appendChild(row);
+                });
+
+                sheet.expenses.forEach(expense => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `<td>${expense.date}</td><td>${expense.description}</td><td>$${expense.amount.toFixed(2)}</td>`;
+                    viewExpensesTable.appendChild(row);
+                });
+
+                document.getElementById('export-pdf').onclick = () => {
+                    const { jsPDF } = window.jspdf;
+                    const doc = new jsPDF();
+                    doc.text(sheet.month, 10, 10);
+                    doc.autoTable({ startY: 20, html: '#view-bills-table', theme: 'grid' });
+                    doc.autoTable({ startY: doc.lastAutoTable.finalY + 10, html: '#view-expenses-table', theme: 'grid' });
+                    doc.save(`${sheet.month}.pdf`);
+                };
+            });
+            list.appendChild(sheetDiv);
+        });
+
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const index = btn.getAttribute('data-index');
+                if (confirm('Are you sure you want to delete this sheet? This action cannot be undone.')) {
+                    if (confirm('Please confirm again to delete this sheet permanently.')) {
+                        pastSheets.splice(index, 1);
+                        localStorage.setItem('pastSheets', JSON.stringify(pastSheets));
+                        renderPastSheets();
+                    }
+                }
+            });
+        });
+    }
+
+    renderPastSheets();
+
+    document.getElementById('back-to-dashboard').addEventListener('click', () => {
+        window.location.href = 'dashboard.html';
+    });
+});
